@@ -1,0 +1,10 @@
+FROM  alpine
+RUN apk add --update nodejs
+COPY ./package.json /tmp/install/package.json
+WORKDIR /tmp/install
+RUN npm install && \  
+    mkdir -p /app && \
+    mv /tmp/install/* /app
+COPY . /app
+WORKDIR /app
+RUN ["npm", "run", "build"]
